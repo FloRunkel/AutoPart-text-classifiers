@@ -34,7 +34,7 @@ class Crawler_Wiki_API:
 
         for j in range(len(cosine_scores)):
             for i in range(len(company_info_sentences)):
-                if cosine_scores[j][i] > 0.25: 
+                if cosine_scores[j][i] > 0.5: 
                     labels.append(label)
                 else: 
                     labels.append('Sonstiges')
