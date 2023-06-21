@@ -7,6 +7,7 @@ from Combine_Crawler_Data import Combine_Crawler_Data
 from Crawler_StepStone import Crawler_StepStone
 from Daten_Analyse import Daten_Analyse
 from Crawler_Indeed import Crawler_Indeed
+from Crawler_Wiki_API import Crawler_Wiki_API
 
 import random
 import pandas as pd 
@@ -14,6 +15,18 @@ import pandas as pd
 # In dieser Klasse werden alle benötigten Daten, Machine Learning Methode und Crawler aufgerufen und ausgefuehrt 
 
 class Textklassifikation:
+
+    # Mittels der Wiki API werden die infos zu den fuehrenden Unternehmen gesammelt und in die jeweilige CSV-Datei geschrieben
+
+    def run_Crawler_Wiki_API(self,  company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name): 
+        for c_sEC in range(len(company_name_sEC)): 
+            Crawler_Wiki_API(company_name_sEC[c_sEC],  pfad + list_csv_Name[0]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für den E-Commerce", 'Softwareentwicklung im E-Commerce')
+
+        for c_B in range(len(company_name_sB)): 
+            Crawler_Wiki_API(company_name_sB[c_B],  pfad + list_csv_Name[1]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für den Bankensektor", 'Softwareentwicklung im Bankensektor')
+
+        for c_C in range(len(company_name_sC)): 
+            Crawler_Wiki_API(company_name_sC[c_C],  pfad + list_csv_Name[2]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für Cloud-Lösungen", 'Softwareentwicklung für Cloud-Lösungen')
 
     # Ruft die Crawler Indeed Klasse auf mit der Webseite, aus welcher der Inhalt extrahiert werden soll.
     # Desweiteren wird der Crawlerklasse der Name der zu erstellenden CSV-Datei uebergeben. 
@@ -134,11 +147,17 @@ if __name__ == "__main__":
     list_titel = ['softwareentwickler-e-commerce', 'softwareentwickler+bankensektor', 'softwareentwickler+für+Cloud-Lösungen'] 
     list_csv_Name = ['/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv']
 
+    #Firmen die bekannt sind in der jeweiligen Branche Software zu entwickeln 
+    company_name_sEC = ['Zalando','Otto Group','Shopify', 'About You', 'Mytheresa', 'Home24','Spreadshirt','flaconi','Westwing','ebay','Amazon']
+    company_name_sB = ['Avaloq','Apobank','adesso AG']
+    company_name_sC = ['Amazon Web Services','Microsoft Azure','Google Cloud Platform','Bluemix', 'IBM','Equinix']
+
     #Textklassifikation().run_Crawler_StepStone(30, pfad, list_titel, list_csv_Name)
     #Textklassifikation().run_Crawler_Indeed(pfad, list_titel, list_csv_Name)
     #Textklassifikation().run_Combine_Crawler_Data(pfad, list_csv_Name)
+    #Textklassifikation().run_Crawler_Wiki_API(company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name)
     #Textklassifikation().run_Data_Analyse()
 
-    Textklassifikation().run_ZeroShot(models, False)
-    Textklassifikation().run_FewShot(models, learning_rate_values, 10, False)
-    Textklassifikation().run_ClassicTextclassfikation(learning_rate_values, 10)
+    #Textklassifikation().run_ZeroShot(models, False)
+    #Textklassifikation().run_FewShot(models, learning_rate_values, 10, False)
+    #Textklassifikation().run_ClassicTextclassfikation(learning_rate_values, 10)
