@@ -54,5 +54,5 @@ class Crawler_Wiki_API:
     def write_into_csv(self, example_sentences, label): 
         data_content, data_labels = self.get_company_info(example_sentences, label)
         dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
-        #pd.DataFrame(dict).to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+        pd.DataFrame(dict).to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
     
