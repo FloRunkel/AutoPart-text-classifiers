@@ -20,7 +20,7 @@ class Crawler_Wiki_API:
         page = wiki_wiki.page(self.company_name)
         
         if page.exists():
-            for sentence in page.summary.split('. '): 
+            for sentence in page.text.split('.'): 
                 if len(sentence)>20: 
                     company_info_sentences.append(sentence.replace('\n', ''))
         else:
@@ -34,7 +34,7 @@ class Crawler_Wiki_API:
 
         for j in range(len(cosine_scores)):
             for i in range(len(company_info_sentences)):
-                if cosine_scores[j][i] > 0.4: 
+                if cosine_scores[j][i] > 0.25: 
                     labels.append(label)
                 else: 
                     labels.append('Sonstiges')
