@@ -1,10 +1,13 @@
+from sentence_transformers import SentenceTransformer, util
 from bs4 import BeautifulSoup
 from time import sleep as pause
 import pandas as pd
 import requests
 import urllib3
+import os
 
 urllib3.disable_warnings()
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # In dieser Klasse werden die Daten aus der Webseite: StepStone extrahiert und in eine CSV-Datei geschreiben
 # Dabei wird BeautifulSoup verwendet
@@ -15,10 +18,12 @@ class Crawler_StepStone:
     # @Paramter: name_csv; gibt an, unter welchem Namen die CSV-Datei gespeichert werden soll 
     # @Paramter: number_of_Pages; gibt an, wie viele Seiten der StepStone Webseiten gecrawlt werden sollen.
 
-    def __init__(self, url,  name_csv, number_of_Pages):
+    def __init__(self, url,  name_csv, number_of_Pages, example_sentences, label):
         self.url = url
         self.name_csv = name_csv
         self.number_of_Pages = number_of_Pages
+        self.example_sentences = example_sentences
+        self.label = label
 
     # getter Methode für die URL der StepStone Webseite
     # @Return: gibt die URL der Webseite wieder
@@ -78,19 +83,30 @@ class Crawler_StepStone:
     # @Return: eine Liste der Eingabesequenzen und eine Liste der zugehoerigen Zielvariablen 
 
     def get_labels_for_each_sentence(self): 
-        data_list = self.extract_Data()
+        company_info_sentences = self.extract_Data()
         label_list=[]
-        for sentence in range(0,len(data_list)):
-            if "e-commerce" in self.url and ("Webentwicklung" in data_list[sentence] or "E-Commerce" in data_list[sentence]):
-                label_list.append("Softwareentwicklung im E-Commerce")
-            elif "bank" in self.url and ("Banken" in data_list[sentence] or "bank" in data_list[sentence]):
-                label_list.append("Softwareentwicklung im Bankensektor")
-            elif "Cloud" in self.url and ("Cloud" in data_list[sentence] or "cloud" in data_list[sentence]):
-                label_list.append("Softwareentwicklung für Cloud-Lösungen")
-            else:
-                label_list.append("Sonstiges")
-            
-        return data_list, label_list
+        
+        model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
+        embeddings1 = model.encode(self.example_sentences, convert_to_tensor=True)
+        embeddings2 = model.encode(company_info_sentences, convert_to_tensor=True)
+        cosine_scores = util.cos_sim(embeddings1, embeddings2) # type: ignore
+
+        for j in range(len(cosine_scores)):
+            for i in range(len(company_info_sentences)):
+                if cosine_scores[j][i] > 0.5: 
+                    label_list.append(self.label)
+                else: 
+                    label_list.append('Sonstiges')
+
+        count = 0 
+        for label in label_list: 
+            if label == 'Sonstiges': 
+                count=+1
+        
+        if count == len(label_list): 
+            print('Nach der Firmenbeschreibung, ist die Firma: nicht in der Branche taetig')
+
+        return company_info_sentences, label_list
     
     # Dies ist eine Helper Methode die den Webseitenkontext ausließt 
     # Dabei ist es enscheident, wie viele Seiten der Webseite gecrawlt werden sollen
