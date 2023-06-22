@@ -16,32 +16,33 @@ import pandas as pd
 
 class Textklassifikation:
 
-    # Mittels der Wiki API werden die infos zu den fuehrenden Unternehmen gesammelt und in die jeweilige CSV-Datei geschrieben
+    # Mittels der Wiki API werden die Infos zu den fuehrenden Unternehmen gesammelt und in die jeweilige CSV-Datei geschrieben
+    # Desweiteren wird der Crawlerklasse der Name der zu erstellenden CSV-Datei uebergeben. 
 
-    def run_Crawler_Wiki_API(self,  company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name): 
-        for c_sEC in range(len(company_name_sEC)): 
-            Crawler_Wiki_API(company_name_sEC[c_sEC],  pfad + list_csv_Name[0]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für den E-Commerce", 'Softwareentwicklung im E-Commerce')
+    def run_Crawler_Wiki_API(self,  company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name, example_sentences, labels): 
+        for number_titel_EC in range(len(company_name_sEC)): 
+            Crawler_Wiki_API(company_name_sEC[number_titel_EC],  pfad + list_csv_Name[0], example_sentences[0], labels[0]).write_into_csv()
 
-        for c_B in range(len(company_name_sB)): 
-            Crawler_Wiki_API(company_name_sB[c_B],  pfad + list_csv_Name[1]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für den Bankensektor", 'Softwareentwicklung im Bankensektor')
+        for number_titel_B in range(len(company_name_sB)): 
+            Crawler_Wiki_API(company_name_sB[number_titel_B],  pfad + list_csv_Name[1], example_sentences[1], labels[1]).write_into_csv()
 
-        for c_C in range(len(company_name_sC)): 
-            Crawler_Wiki_API(company_name_sC[c_C],  pfad + list_csv_Name[2]).write_into_csv("Das Unternehmen entwickelt Softwarelösungen für Cloud-Lösungen", 'Softwareentwicklung für Cloud-Lösungen')
+        for number_titel_CS in range(len(company_name_sC)): 
+            Crawler_Wiki_API(company_name_sC[number_titel_CS],  pfad + list_csv_Name[2], example_sentences[2], labels[2]).write_into_csv()
 
     # Ruft die Crawler Indeed Klasse auf mit der Webseite, aus welcher der Inhalt extrahiert werden soll.
     # Desweiteren wird der Crawlerklasse der Name der zu erstellenden CSV-Datei uebergeben. 
 
-    def run_Crawler_Indeed(self,  pfad, list_titel, list_csv_Name): 
+    def run_Crawler_Indeed(self,  pfad, list_titel, list_csv_Name, example_sentences, labels): 
         for number_titel in range(len(list_titel)): 
-            Crawler_Indeed(f'https://de.indeed.com/jobs?q={list_titel[number_titel]}&l=Deutschland&from=searchOnHP&vjk=b03e724b97697e90&page=', pfad + list_csv_Name[number_titel]).write_into_csv()
+            Crawler_Indeed(f'https://de.indeed.com/jobs?q={list_titel[number_titel]}&l=Deutschland&from=searchOnHP&vjk=b03e724b97697e90&page=', pfad + list_csv_Name[number_titel], example_sentences[number_titel], labels[number_titel]).write_into_csv()
 
     # Ruft die Crawler Stepstone Klasse auf mit der Webseite, aus welcher der Inhalt extrahiert werden soll.
     # Desweiteren wird der Crawlerklasse der Name der zu erstellenden CSV-Datei uebergeben. 
 
     def run_Crawler_StepStone(self, number_of_Pages, pfad, list_titel, list_csv_Name):
-        page=int
-        for number_titel in range(len(list_titel)): 
-            Crawler_StepStone(f'https://www.stepstone.de/jobs/{list_titel[number_titel]}/in-deutschland?radius=30&page={page}&wci=300000115.html', pfad + list_csv_Name[number_titel], number_of_Pages).write_into_csv()
+        for page in range(1, number_of_Pages):
+            for number_titel in range(len(list_titel)): 
+                Crawler_StepStone(f'https://www.stepstone.de/jobs/{list_titel[number_titel]}/in-deutschland?radius=30&page={page}&wci=300000115.html', pfad + list_csv_Name[number_titel], number_of_Pages, example_sentences[number_titel], labels[number_titel]).write_into_csv()
 
     # Zusammenfuegen der gecrawlten Daten in eine CSV Datei 
 
@@ -141,23 +142,25 @@ class Textklassifikation:
 # Namen der CSV-Datein ('/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv')
 
 if __name__ == "__main__":
-    models = ['deepset/gbert-large', 'xlm-roberta-large']
-    learning_rate_values = [4e-4, 4e-5, 4e-6]
     pfad='/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data' 
     list_titel = ['softwareentwickler-e-commerce', 'softwareentwickler+bankensektor', 'softwareentwickler+für+Cloud-Lösungen'] 
     list_csv_Name = ['/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv']
+    labels = ['Softwareentwicklung im E-Commerce', 'Softwareentwicklung im Bankensektor', 'Softwareentwicklung für Cloud-Lösungen']
+    example_sentences = ["Das Unternehmen entwickelt Softwarelösungen für den E-Commerce", "Das Unternehmen entwickelt Softwarelösungen für den Bankensektor", "Das Unternehmen entwickelt Softwarelösungen für Cloud-Lösungen"]
 
     #Firmen die bekannt sind in der jeweiligen Branche Software zu entwickeln 
     company_name_sEC = ['Zalando','Otto Group','Shopify', 'About You', 'Mytheresa', 'Home24','Spreadshirt','flaconi','Westwing','ebay','Amazon']
-    company_name_sB = ['Avaloq','Apobank','adesso AG']
+    company_name_sB = ['Avaloq','SAP SE','adesso AG','Finanz Informatik', 'Fiducia & GAD IT AG', 'Hypoport AG', ]
     company_name_sC = ['Amazon Web Services','Microsoft Azure','Google Cloud Platform','Bluemix', 'IBM','Equinix']
 
-    #Textklassifikation().run_Crawler_StepStone(30, pfad, list_titel, list_csv_Name)
-    #Textklassifikation().run_Crawler_Indeed(pfad, list_titel, list_csv_Name)
+    #Textklassifikation().run_Crawler_StepStone(10, pfad, list_titel, list_csv_Name)
+    #Textklassifikation().run_Crawler_Indeed( pfad, list_titel, list_csv_Name, example_sentences, labels)
+    #Textklassifikation().run_Crawler_Wiki_API(company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name, example_sentences, labels)
     #Textklassifikation().run_Combine_Crawler_Data(pfad, list_csv_Name)
-    #Textklassifikation().run_Crawler_Wiki_API(company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name)
     #Textklassifikation().run_Data_Analyse()
 
+    models = ['deepset/gbert-large', 'xlm-roberta-large']
+    learning_rate_values = [4e-4, 4e-5, 4e-6]
     #Textklassifikation().run_ZeroShot(models, False)
     #Textklassifikation().run_FewShot(models, learning_rate_values, 10, False)
     #Textklassifikation().run_ClassicTextclassfikation(learning_rate_values, 10)
