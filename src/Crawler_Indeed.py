@@ -18,7 +18,7 @@ class Crawler_Indeed():
     # @Parameter: url; Gibt die URL, der zu extrahierenden Webseite an
     # @Paramter: name_csv; Gibt an, unter welchem Namen die CSV-Datei gespeichert werden soll 
 
-    def __init__(self, url,  name_csv, example_sentences, label ):
+    def __init__(self, url,  name_csv, example_sentences, label):
         self.url = url
         self.name_csv = name_csv
         self.example_sentences = example_sentences
@@ -48,13 +48,6 @@ class Crawler_Indeed():
         driver.close()
         return data_list
     
-    # Das erstellte DataFrame, mit Eingabesequenzen und einer zugehörigen Zielvariable, werden in der angegbenen CSV-Datei geschrieben 
-
-    def write_into_csv(self): 
-        data_content, data_labels = self.get_labels_for_each_sentence()
-        dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
-        pd.DataFrame(dict).drop_duplicates(keep='first').to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
-    
     # Mittels einiger Schluesselwoerter wird eine erste Annotation der Saetze durchgefuehrt
     # @Return: eine Liste der Eingabesequenzen und eine Liste der zugehoerigen Zielvariablen 
 
@@ -83,3 +76,11 @@ class Crawler_Indeed():
             print('Nach der Firmenbeschreibung, ist die Firma: nicht in der Branche taetig')
 
         return company_info_sentences, label_list
+    
+    # Das erstellte DataFrame, mit Eingabesequenzen und einer zugehörigen Zielvariable, werden in der angegbenen CSV-Datei geschrieben 
+
+    def write_into_csv(self): 
+        data_content, data_labels = self.get_labels_for_each_sentence()
+        dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
+        pd.DataFrame(dict).drop_duplicates(keep='first').to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+    
