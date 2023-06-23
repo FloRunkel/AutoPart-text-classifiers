@@ -1,6 +1,9 @@
+from sentence_transformers import SentenceTransformer, util
 import wikipediaapi 
 import pandas as pd 
-from sentence_transformers import SentenceTransformer, util
+
+# In dieser Klasse werden die Unternehmensdaten aus den Wikipedia eintraegen extrahiert 
+# Dabei wird Wikipedia-API verwendet
 
 class Crawler_Wiki_API:
      
@@ -16,18 +19,26 @@ class Crawler_Wiki_API:
     # Sollte die aehnlichkeit des extrahierten Satzes mit dem Beispielssatz ueber 50% liegen, kann der Satz mit dem jeweiligen Label versehen werden. 
     # @Return: company_info_sentences, labels, Die extrahierten Saetz mit dem entsprechendem Label 
     
-    def get_company_info(self):
-        company_info_sentences, labels_list=[], []
+    def get_text_from_website(self):
+        company_info_sentences=[]
         wiki_wiki = wikipediaapi.Wikipedia('de')
         page = wiki_wiki.page(self.company_name)
         
         if page.exists():
             for sentence in page.summary.split('.'): 
-                if len(sentence)>20: 
+                if len(sentence)>10: 
                     company_info_sentences.append(sentence.replace('\n', ''))
         else:
             print('Zu dieser Firma: ' + self.company_name + ' gibt es keinen Wikipediaartikel ' )
-            return company_info_sentences, labels_list
+
+        return company_info_sentences
+    
+    # Mittels einiger Schluesselwoerter wird eine erste Annotation der Saetze durchgefuehrt
+    # @Return: eine Liste der Eingabesequenzen und eine Liste der zugehoerigen Zielvariablen 
+    
+    def get_labels_for_each_sentence(self): 
+        company_info_sentences = self.get_text_from_website()
+        labels_list=[]
 
         model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
         embeddings1 = model.encode(self.example_sentences, convert_to_tensor=True)
@@ -54,7 +65,7 @@ class Crawler_Wiki_API:
     # Das erstellte DataFrame, mit Eingabesequenzen und einer zugehörigen Zielvariable, werden in die angegbenen CSV-Datei geschrieben 
 
     def write_into_csv(self): 
-        data_content, data_labels = self.get_company_info()
+        data_content, data_labels = self.get_labels_for_each_sentence()
         dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
         pd.DataFrame(dict).to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
     
