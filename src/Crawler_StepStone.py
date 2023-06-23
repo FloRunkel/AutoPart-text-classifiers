@@ -1,83 +1,52 @@
 from sentence_transformers import SentenceTransformer, util
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-from time import sleep as pause
-import pandas as pd
-import requests
+import pandas as pd 
 import urllib3
-import os
 
 urllib3.disable_warnings()
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-# In dieser Klasse werden die Daten aus der Webseite: StepStone extrahiert und in eine CSV-Datei geschreiben
-# Dabei wird BeautifulSoup verwendet
+# In dieser Klasse werden die Daten aus der Webseite: Indeed extrahiert und in eine CSV-Datei geschreiben
+# Dabei wird Selenium und BeautifulSoup verwendet
 
-class Crawler_StepStone:
+class Crawler_Indeed():
 
-    # @Parameter: url; gibt die URL, der zu extrahierenden Webseite an
-    # @Paramter: name_csv; gibt an, unter welchem Namen die CSV-Datei gespeichert werden soll 
-    # @Paramter: number_of_Pages; gibt an, wie viele Seiten der StepStone Webseiten gecrawlt werden sollen.
+    # @Parameter: url; Gibt die URL, der zu extrahierenden Webseite an
+    # @Paramter: name_csv; Gibt an, unter welchem Namen die CSV-Datei gespeichert werden soll 
 
-    def __init__(self, url,  name_csv, number_of_Pages, example_sentences, label):
+    def __init__(self, url,  name_csv, example_sentences, label):
         self.url = url
         self.name_csv = name_csv
-        self.number_of_Pages = number_of_Pages
         self.example_sentences = example_sentences
         self.label = label
 
-    # getter Methode für die URL der StepStone Webseite
-    # @Return: gibt die URL der Webseite wieder
+    # In dieser Function werden die Daten aus der Indeed Webseite ausgelesen 
+    # Die extrahierten Saetze über die jeweiligen Unternehmen die ausgelesen wurden, werden in einer CSV-Datei gespeichert
+    # @Return: eine Liste der extrahierten Jobbeschreibungen 
 
-    def get_url(self): 
-        return self.url
+    def extract_Data(self):
+        options = Options()    
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        data_list=[]
 
-    # getter Methode für den Header der StepStone Webseite
-    # @Return: Gibt den zu uebergebenen Header an die jeweilige Webseite wieder.
+        for i in range(0,50,10):
+            driver.get(self.url+str(i))
+            driver.implicitly_wait(20)
+            
+            for job in driver.find_elements(By.CLASS_NAME, "job-snippet"):
+                soup = BeautifulSoup(job.get_attribute('innerHTML'),'html.parser')   
+                try:
+                     description = soup.find("li").text.replace("\n","").strip() # type: ignore
+                except:
+                    description = 'None'  
+                data_list.append(description)
 
-    def get_Header(self): 
-        headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-                   "Accept-Encoding": "gzip, deflate",
-                   "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
-                   "User-Agent": "Mozilla/5.0"}
-        return headers
-    
-    # Erstellt ein Anfrage an eine Webseite und den BeautifulSoup
-    # @Return: gibt die Webseite mittels BeautifulSoup wieder
-
-    def make_soup(self):
-        page = requests.get(self.url, headers = self.get_Header(), verify=False)
-        return BeautifulSoup(page.content, "html.parser")
-    
-    # In dieser Methode werden die Daten aus den einzelnen Stellenangeboten ausgelesen und gespeichert 
-    # @Return: gibt die einzelnen Saetze der Stellenangebote wieder
-
-    def get_text_from_website(self):
-        soup = self.make_soup()
-        data_content = []
-        company_context = str     
-        for result in soup.find_all('article', attrs={'data-at': 'job-item'}):
-            for content in result.find_all('div', attrs={'data-at': 'jobcard-content'}):
-                company_context = content.find('span').get_text().strip()
-
-            if '*' in company_context and not 'innen' in company_context and not 'Programmierer*in' in company_context and '. ' in company_context: # type: ignore
-                data_content = data_content + company_context.split("*")
-        return data_content
-
-    # Erstellen eines DataFrames mit dem Webseitenkontext und einer zugehoerigen Zielvariabel 
-    # Duplikate werden aufgrund von ueberscheidenen Jobangeboten geloescht
-    # @Parameter: data_content; Wiedergabe des Websietenkontextes in Sätzen.
-    # @Parameter: data_labels; Die Labels für einen Satz aus der Webseite
-    # @Return: DataFrame mit einem Label und einem Satz aus dem Webseitenkontext 
-
-    def create_DataFrame(self, data_content, data_labels): 
-        dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
-        return pd.DataFrame(dict).drop_duplicates(keep='first')
-    
-    # Das erstellte DataFrame wird in eine CSV-Datei geschrieben. 
-
-    def write_into_csv(self): 
-        data_content, data_labels = self.get_labels_for_each_sentence()
-        self.create_DataFrame(data_content, data_labels).to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+        driver.close()
+        return data_list
     
     # Mittels einiger Schluesselwoerter wird eine erste Annotation der Saetze durchgefuehrt
     # @Return: eine Liste der Eingabesequenzen und eine Liste der zugehoerigen Zielvariablen 
@@ -108,15 +77,10 @@ class Crawler_StepStone:
 
         return company_info_sentences, label_list
     
-    # Dies ist eine Helper Methode die den Webseitenkontext ausließt 
-    # Dabei ist es enscheident, wie viele Seiten der Webseite gecrawlt werden sollen
-    # @Return: die gecrawlten Daten werden in Form einer Liste wiedergegeben
+    # Das erstellte DataFrame, mit Eingabesequenzen und einer zugehörigen Zielvariable, werden in der angegbenen CSV-Datei geschrieben 
 
-    def extract_Data(self): 
-        list_Data_content = []
-        for page in range(1,self.number_of_Pages):
-            pause(2)
-            #print("2 sec Pause bis zur nächsten Abfrage")
-            self.get_url()
-            list_Data_content += self.get_text_from_website()
-        return list_Data_content
+    def write_into_csv(self): 
+        data_content, data_labels = self.get_labels_for_each_sentence()
+        dict = {'Beschriftung': data_labels, 'Eingabesequenz': data_content} 
+        pd.DataFrame(dict).drop_duplicates(keep='first').to_csv(self.name_csv, index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+    
