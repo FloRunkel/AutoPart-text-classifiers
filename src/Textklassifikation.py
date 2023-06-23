@@ -146,7 +146,7 @@ if __name__ == "__main__":
     list_titel = ['softwareentwickler-e-commerce', 'softwareentwickler+bankensektor', 'softwareentwickler+für+Cloud-Lösungen'] 
     list_csv_Name = ['/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv']
     labels = ['Softwareentwicklung im E-Commerce', 'Softwareentwicklung im Bankensektor', 'Softwareentwicklung für Cloud-Lösungen']
-    example_sentences = ["Das Unternehmen entwickelt Softwarelösungen für den E-Commerce", "Das Unternehmen entwickelt Softwarelösungen für den Bankensektor", "Das Unternehmen entwickelt Softwarelösungen für Cloud-Lösungen"]
+    example_sentences = ["Das Unternehmen entwickelt Software für den E-Commerce", "Das Unternehmen entwickelt Software für den Bankensektor", "Das Unternehmen entwickelt Software für Cloud-Lösungen"]
 
     #Firmen die bekannt sind in der jeweiligen Branche Software zu entwickeln 
     company_name_sEC = ['Zalando','Otto Group','Shopify', 'About You', 'Mytheresa', 'Home24','Spreadshirt','flaconi','Westwing','ebay','Amazon']
