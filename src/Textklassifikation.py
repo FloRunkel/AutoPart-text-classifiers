@@ -65,7 +65,9 @@ class Textklassifikation:
     # Mittels der verteilung_Data_plot Methode kamm die Verteilung der einzelnen Kategorien in der CSV-Datei genauer betrachtet werden und Ausschlüsse über die Qualität der Daten geben. 
 
     def run_Data_Analyse(self):
-        Daten_Analyse('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data/Data.csv').verteilung_Data_plot()
+        #Daten_Analyse('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data/Data.csv').verteilung_Data_plot()
+        #Daten_Analyse('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data/Data.csv').satzlaenge_Data_plot()
+        Daten_Analyse('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data/Data.csv').woerterHaeufigkeit()
     
     # In dieser Methode wird die Machine Learning Methode Zero Shot angewendet.
     # Dabei werden die Daten mittels des Dictionarys aus der get_Data_for_Shot_Versions Methode übergeben und anschließend trainiert.
@@ -132,8 +134,7 @@ class Textklassifikation:
     #Helper Methode um einen Report der Evaluatiosergebnisse zu erhalten. 
 
     def generate_Report(self, model_beschreibung, f1_micro, f1_macro, mcc): 
-        dict = {'Model Beschreibung': model_beschreibung, 'F1-Score Micro':f1_micro, 'F1-Score Macro': f1_macro, 'MCC': f1_micro} 
-        pd.DataFrame.from_records([dict]).to_csv('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Evaluation.csv',  index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+        pd.DataFrame.from_records([{'Model Beschreibung': model_beschreibung, 'F1-Score Micro':f1_micro, 'F1-Score Macro': f1_macro, 'MCC': mcc} ]).to_csv('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Evaluation.csv',  index=False, sep = ';', encoding='utf-8', header=False, mode='a')
 
 # In der Main Methode wird daher mittels der Aufrufe aus der Textklassifikation, die jeweiligen Machine Learning Methoden Machine Learning Methode und Crawler aufgerufen und ausgefuehrt. 
 # vortrainierte Modelle für die Shot-Versionen ('deepset/gbert-large', 'xlm-roberta-large')
@@ -157,10 +158,11 @@ if __name__ == "__main__":
     #Textklassifikation().run_Crawler_Indeed( pfad, list_titel, list_csv_Name, example_sentences, labels)
     #Textklassifikation().run_Crawler_Wiki_API(company_name_sEC, company_name_sB, company_name_sC, pfad, list_csv_Name, example_sentences, labels)
     #Textklassifikation().run_Combine_Crawler_Data(pfad, list_csv_Name)
-    #Textklassifikation().run_Data_Analyse()
-
+    
     models = ['deepset/gbert-large', 'xlm-roberta-large']
     learning_rate_values = [4e-4, 4e-5, 4e-6]
-    #Textklassifikation().run_ZeroShot(models, False)
-    #Textklassifikation().run_FewShot(models, learning_rate_values, 10, False)
     #Textklassifikation().run_ClassicTextclassfikation(learning_rate_values, 10)
+    #Textklassifikation().run_FewShot(models, learning_rate_values, 10, False)
+    #Textklassifikation().run_ZeroShot(models, False)
+
+    #Textklassifikation().run_Data_Analyse()    
