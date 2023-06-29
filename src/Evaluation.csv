@@ -12,3 +12,55 @@ Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-05' und eine
 Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.9757085020242915;0.979364773625839;0.9757085020242915
 Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.9109311740890689;0.8893946150352432;0.9109311740890689
 Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.951417004048583;0.9471506419985646;0.951417004048583
+
+#mit Datensatz aus gitHub
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.8528735632183908;0.23014888337468983;0.8528735632183908
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.8528735632183908;0.23014888337468983;0.8528735632183908
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8689655172413793;0.5397049643037851;0.8689655172413793
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8528735632183908;0.23014888337468983;0.8528735632183908
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.8666666666666667;0.4229479949874686;0.8666666666666667
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.864367816091954;0.508896040420967;0.864367816091954
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.8378378378378378;0.22794117647058826;0.8378378378378378
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8378378378378378;0.22794117647058826;0.8378378378378378
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.8438438438438438;0.2572599531615925;0.8438438438438438
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.8378378378378378;0.22794117647058826;0.8378378378378378
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8378378378378378;0.22794117647058826;0.8378378378378378
+
+#ohne die händischen Daten 
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.8288288288288288;0.22660098522167488;0.0
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.8288288288288288;0.22660098522167488;0.0
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.5255255255255256;0.2237330540150926;0.030026020997199362
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.8288288288288288;0.22660098522167488;0.0
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.6246246246246246;0.2524709650104244;-0.005702336599704142
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.4744744744744745;0.16808510638297872;-0.055856790610766816
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.8597701149425288;0.2311495673671199;0.0
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.8597701149425288;0.2311495673671199;0.0
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.8781609195402299;0.49578312809197367;0.4752459408351832
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.8804597701149425;0.38965522665072827;0.4566597303435021
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.8597701149425288;0.2311495673671199;0.0
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.8597701149425288;0.2311495673671199;0.0
+
+#mit den händischen Daten
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.7847222222222222;0.2198443579766537;0.0
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.7847222222222222;0.2198443579766537;0.0
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.8888888888888888;0.7511221859840933;0.6912501884766323
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.8888888888888888;0.7691799515710485;0.6968834173305795
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.8524305555555556;0.5516774891774892;0.568436874117877
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.8819444444444444;0.7634426500133229;0.6782058276861485
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.8179551122194514;0.6399346531905323;0.5748108255552247
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 5;0.6982543640897756;0.20558002936857564;0.0
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 5;0.35660847880299246;0.17998655436173117;-0.022519844084630977
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 5;0.6982543640897756;0.20558002936857564;0.0
+
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.7743055555555556;0.21819960861056753;0.0
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.7743055555555556;0.21819960861056753;0.0
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8732638888888888;0.7238582524380267;0.662816500779031
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.8802083333333334;0.7389925564281108;0.6890740230003539
+Classic Textclassfikation mit Modell: BERT , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.8628472222222222;0.7101486217131504;0.6385817475216314
+Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.8680555555555556;0.7181369744235805;0.6682459636206215
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.7880299251870324;0.6460070002072419;0.5428253973593931
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.6683291770573566;0.20029895366218234;0.0
+Few-Shot mit Modell: 'deepset/gbert-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.5236907730673317;0.32910505103762555;0.11389923804563115
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '0.0004' und einer Epochen-Anzahl von 10;0.7281795511221947;0.5424391700253769;0.3791658105574073
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '4e-05' und einer Epochen-Anzahl von 10;0.6683291770573566;0.20029895366218234;0.0
+Few-Shot mit Modell: 'xlm-roberta-large', einer Lernrate von '4e-06' und einer Epochen-Anzahl von 10;0.47880299251870323;0.2634466205837174;0.026004750995538138
