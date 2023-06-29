@@ -44,3 +44,73 @@ class Daten_Analyse(Data):
         plt.ylabel('Anzahl im Datensatz', fontsize=16, fontweight="bold")
         plt.bar(list(plot_labeled_texts.keys()) ,list(plot_labeled_texts.values()))
         plt.show(block=True)
+
+    # Mittels dieser Methode, kann Auskunft über die durchschnittlichen Satzlaengen geben
+    # Hiebei wird ein Balkendiagramm erstellt, welches die durchschnittliche Satzlaenge pro Kategorie darstellt
+    
+    def satzlaenge_Data_plot(self):
+        label = ["Softwareentwicklung im E-Commerce", "Softwareentwicklung im Bankensektor", "Softwareentwicklung für Cloud-Lösungen", "Sonstiges"]
+        durchschnittsatzlaenge = []
+
+        satz_laengen_sonstiges = [len(value) for key, value in self.read_csv_Datei().items() if value == "Sonstiges"]
+        durchschnitt_sonstiges = sum(satz_laengen_sonstiges) / len(satz_laengen_sonstiges)
+        durchschnittsatzlaenge.append(durchschnitt_sonstiges)
+        
+        satz_laengen_ecommerce = [len(value) for key, value in self.read_csv_Datei().items() if value == "Softwareentwicklung im E-Commerce"]
+        durchschnitt_ecommerce = sum(satz_laengen_ecommerce) / len(satz_laengen_ecommerce)
+        durchschnittsatzlaenge.append(durchschnitt_ecommerce)
+
+        satz_laengen_bank = [len(value) for key, value in self.read_csv_Datei().items() if value == "Softwareentwicklung im Bankensektor"]
+        durchschnitt_bank = sum(satz_laengen_bank) / len(satz_laengen_bank)
+        durchschnittsatzlaenge.append(durchschnitt_bank)
+
+        satz_laengen_cloud = [len(value) for key, value in self.read_csv_Datei().items() if value == "Softwareentwicklung für Cloud-Lösungen"]
+        durchschnitt_cloud = sum(satz_laengen_cloud) / len(satz_laengen_cloud)
+        durchschnittsatzlaenge.append(durchschnitt_cloud)
+
+        plt.xticks(rotation=90, fontsize=14)
+        plt.title("Durchschnittliche Satzlänge pro Kategorie", fontsize=20, fontweight="bold")
+        plt.xlabel('Klassenbezeichnung', fontsize=16, fontweight="bold")
+        plt.ylabel('Durchschnittliche Satzlängez', fontsize=16, fontweight="bold")
+        plt.bar(label, durchschnittsatzlaenge)
+        plt.show(block=True)
+
+    # Mittels dieser Methode, kann Auskunft über die dhaufigkeit von Woerten innerhalb einer Klase geben 
+    # Hiebei wird ein Balkendiagramm erstellt, welches die haufigkeit der Woerter pro Kategorie darstellt
+
+    def woerterHaeufigkeit(self): 
+        woerter_haeufigkeiten_sonstiges, woerter_haeufigkeiten_ec, woerter_haeufigkeiten_bank, woerter_haeufigkeiten_cloud= Counter(), Counter(), Counter(), Counter()
+
+        for key, value in self.read_csv_Datei().items():
+            if value == "Sonstiges":
+                woerter = key.split()
+                woerter_haeufigkeiten_sonstiges.update(woerter)
+                
+            if value == "Softwareentwicklung im E-Commerce": 
+                woerter = key.split()
+                woerter_haeufigkeiten_ec.update(woerter)
+
+            if value == "Softwareentwicklung im Bankensektor": 
+                woerter = key.split()
+                woerter_haeufigkeiten_bank.update(woerter)
+
+            if value == "Softwareentwicklung für Cloud-Lösungen": 
+                woerter = key.split()
+                woerter_haeufigkeiten_cloud.update(woerter)
+        
+        dict = {
+            "Sonstiges": woerter_haeufigkeiten_sonstiges.most_common(15),
+            "Softwareentwicklung im E-Commerce":woerter_haeufigkeiten_ec.most_common(15),
+            "Softwareentwicklung im Bankensektor": woerter_haeufigkeiten_bank.most_common(15),
+            "Softwareentwicklung für Cloud-Lösungen": woerter_haeufigkeiten_cloud.most_common(15)
+        }
+
+        for category, word_freq in dict.items():
+            words, frequencies = zip(*word_freq) 
+            plt.figure()
+            plt.bar(words, frequencies)
+            plt.xlabel("Wörter")
+            plt.ylabel("Häufigkeiten")
+            plt.title(f"Häufigkeiten der Top 5 Wörter - {category}")
+            plt.xticks(rotation=45)
+            plt.show()
