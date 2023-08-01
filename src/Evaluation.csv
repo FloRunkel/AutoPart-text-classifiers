@@ -105,16 +105,5 @@ Multi-Class Textclassfikation mit Modell: Modell: RoBERTa , Lernrate: '0.0004' u
 Multi-Class Textclassfikation mit Modell: Modell: RoBERTa , Lernrate: '4e-05' und einer Epochen-Anzahl von '10' und der Verwendung von 100% der verfuegbaren Daten.;0.816247582205029;0.7706706420294125;0.675437553051421
 Multi-Class Textclassfikation mit Modell: Modell: RoBERTa , Lernrate: '4e-06' und einer Epochen-Anzahl von '10' und der Verwendung von 100% der verfuegbaren Daten.;0.8143133462282399;0.7565193393067128;0.6707742918756568
 
-Finden des Finalen Modells
-Multi-Class Textclassfikation mit Modell: RoBERTa , einer Lernrate von '4e-06' und einer Epochen-Anzahl von '20' und der Verwendung von 100% der verfuegbaren Daten.;0.8492753623188406;0.8092933096366712;0.7241328156634111
-Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '10' und der Verwendung von 100% der verfuegbaren Daten.;0.8459657701711492;0.8155686202389604;kein support fuer MultiLabel
-
-Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '20' und der Verwendung von 100% der verfuegbaren Daten.;0.8487690504103166;0.8383483385359828;kein support fuer MultiLabel Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '30' und der Verwendung von 100% der verfuegbaren Daten.;0.8183962264150944;0.8169548759771079;kein support fuer MultiLabel
-
-Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '18' und der Verwendung von 100% der verfuegbaren Daten.;0.8390129259694478;0.8337146368067158;kein support fuer MultiLabel
-Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '23' und der Verwendung von 100% der verfuegbaren Daten.;0.830188679245283;0.8082370471245152;kein support fuer MultiLabel
-Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '18' und der Verwendung von 100% der verfuegbaren Daten.;0.830188679245283;0.8183577932771482;kein support fuer MultiLabel
- Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '18' und der Verwendung von 100% der verfuegbaren Daten.;0.808411214953271;0.8022589513176508;kein support fuer MultiLabel
- Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '13' und der Verwendung von 100% der verfuegbaren Daten.;0.8179669030732861;0.7990440624614936;kein support fuer MultiLabel
- Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '20' und der Verwendung von 100% der verfuegbaren Daten.;0.8028169014084506;0.7983296580913015;kein support fuer MultiLabel
- Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '20' und der Verwendung von 100% der verfuegbaren Daten.;0.8827751196172248;0.8736697222270862;kein support fuer MultiLabel
+Das Finale Modell
+Multi-Label Classic Textclassfikation mit Modell: RoBERTa , einer Lernrate von '1e-05' und einer Epochen-Anzahl von '20' und der Verwendung von 100% der verfuegbaren Daten.;0.8827751196172248;0.8736697222270862;kein support fuer MultiLabel
