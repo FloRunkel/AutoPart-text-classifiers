@@ -35,16 +35,16 @@ if __name__ == "__main__":
 
         #crawler.run_Crawler(numberStepsStone=10)
 
-        models =  ['xlm-roberta-large']  #['deepset/gbert-large', 'xlm-roberta-large'] #['deepset/gbert-large'] ['xlm-roberta-large'] 
-        learning_rate_values = [1e-05]   #[1e-05, 2e-5, 3e-5, 4e-4, 4e-5, 4e-6]    
-        epochs =  20
+        models =  ['deepset/gbert-large', 'xlm-roberta-large'] #['deepset/gbert-large'] ['xlm-roberta-large'] 
+        learning_rate_values = [1e-05, 2e-5, 3e-5, 4e-4, 4e-5, 4e-6]    
+        epochs =  10
         multilabel_selecter= True  
         percentual_data_use = 1
 
         Textklassifikator_list = ['Zero-Shot','Few-Shot','Classic']
         Textklassifikator_select = {
-                'Zero-Shot' : False,  
-                'Few-Shot' : False,
+                'Zero-Shot' : True,  
+                'Few-Shot' : True,
                 'Classic' : True
         }
 
