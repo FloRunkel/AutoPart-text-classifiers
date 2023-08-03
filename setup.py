@@ -15,7 +15,7 @@ setup(
 
     install_requires=[
         'scikit-learn',
-        'simpletransformers',
+        'simpletransformers==0.63.11',
         'selenium',
         'webdriver_manager',
         'bs4',
@@ -28,7 +28,7 @@ setup(
         'sklearn',
         'spacy',
         'flair',
-        'transformers',
+        'transformers==4.31.0',
     ],
 
     python_requires='>=3.7',
