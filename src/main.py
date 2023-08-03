@@ -1,5 +1,6 @@
 from CrawlerExecute import CrawlerExecute 
 from TextklassifikatorExecute import TextklassifikatorExecute
+import os
 
 # In der Main Methode wird daher mittels der Aufrufe aus der Textklassifikation, die jeweiligen Machine Learning Methoden Machine Learning Methode und Crawler aufgerufen und ausgefuehrt. 
 # vortrainierte Modelle für die Shot-Versionen ('deepset/gbert-large', 'xlm-roberta-large')
@@ -8,7 +9,10 @@ from TextklassifikatorExecute import TextklassifikatorExecute
 # Namen der CSV-Datein ('/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv')
 
 if __name__ == "__main__":
-        pfad='/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Crawling_Data' 
+        current_dir = os.getcwd()
+        data_dir = "Crawling_Data"
+        pfad = os.path.join(current_dir, data_dir)
+        
         list_titel = ['softwareentwickler-e-commerce', 'softwareentwickler+bankensektor', 'softwareentwickler+für+Cloud-Lösungen'] 
         list_csv_Name = ['/Results_Crawling_ECommerce.csv', '/Results_Crawling_Bankensektor.csv', '/Results_Crawling_Cloud.csv']
         labels = ['Softwareentwicklung im E-Commerce', 'Softwareentwicklung im Bankensektor', 'Softwareentwicklung für Cloud-Lösungen']
