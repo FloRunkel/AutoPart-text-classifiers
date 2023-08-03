@@ -8,6 +8,7 @@ from Datenaufbereitung import Datenaufbereitung
 from Daten_Analyse import Daten_Analyse
 from Evaluation_Analyse import Evaluation_Analyse
 import pandas as pd 
+import os
 
 # In dieser Klasse werden die einzelnen Textklassifikatoren inizialisiert und die benötigten Parameter und Daten für die Klassifikatoren übergeben 
 
@@ -166,7 +167,9 @@ class TextklassifikatorExecute:
     # Methode um einen Report der Evaluatiosergebnisse zu erhalten. 
 
     def generate_Report(self, model_beschreibung, f1_micro, f1_macro, mcc): 
-        pd.DataFrame.from_records([{'Model Beschreibung': model_beschreibung, 'F1-Score Micro':f1_micro, 'F1-Score Macro': f1_macro, 'MCC': mcc} ]).to_csv('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Evaluation.csv',  index=False, sep = ';', encoding='utf-8', header=False, mode='a')
+        pfad = os.path.join(os.getcwd(), "Evaluation.csv")
+        pd.DataFrame.from_records([{'Model Beschreibung': model_beschreibung, 'F1-Score Micro':f1_micro, 'F1-Score Macro': f1_macro, 'MCC': mcc} ]).to_csv(pfad,index=False, sep = ';', encoding='utf-8', header=False, mode='a')
 
     def generate_Evaluation_Graphik(self): 
-        Evaluation_Analyse('/Users/florunkel/01_Flo/02_Uni/Wirtschaftsinformatik/08_Semester/Bachelorarbeit/Autopart/src/Evaluation.csv').graphik()
+        pfad = os.path.join(os.getcwd(), "Evaluation.csv")
+        Evaluation_Analyse(pfad).graphik()
